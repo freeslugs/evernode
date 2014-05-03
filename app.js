@@ -5,10 +5,26 @@
 var express = require('express'),
 	api = require('./routes/api'),
 	http = require('http'),
-	path = require('path');
+	path = require('path'),
+	hostName = "http://sandbox.evernote.com"; 
 
 var app = module.exports = express();
 
+var options,oauth;
+ options = {
+    consumerKey: 'kkaliannan',
+    consumerSecret: 'ec2b2a3c0b579321',
+    callbackUrl : 'locahost:3000/api/callback',
+    signatureMethod : "HMAC-SHA1",
+};
+oauth = OAuth(options);
+oauth.request({'method': 'GET', 'url': hostName + '/oauth', 'success': success, 'failure': failure});
+
+var verifier = <your verifier>;
+var oauth_token = <your oauth token>;
+var secret = <oauth secret from step 1>;
+oauth.setVerifier(verifier);
+oauth.setAccessToken([got_oauth,secret]);
 
 /**
  * Configuration
