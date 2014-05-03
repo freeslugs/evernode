@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "express": "*",
-    "evernote": "~1.25.3"
+    "evernote": "~1.25.3",
+    "mailjet": "0.0.1"
   }
 }
