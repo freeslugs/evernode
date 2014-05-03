@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 EVERNODE
 
 DisruptNY hackathon project
@@ -52,3 +53,7 @@ MIT
 ### Credits
 Shout out to [btford](https://github.com/btford) who created the [angular-express-seed](https://github.com/btford/angular-express-seed) with jade. Used btford's work as a starting point.
 >>>>>>> a0935556e4694cb750ef268cb7147ec7ac8710a9
+=======
+evernode
+========
+>>>>>>> 83906159e5ff0f8f0999b8088b25cacd36f02b21

@@ -6,40 +6,51 @@ var express = require('express'),
 	api = require('./routes/api'),
 	http = require('http'),
 	path = require('path'),
-	hostName = "http://sandbox.evernote.com"; 
+	hostName = "http://sandbox.evernote.com",
+	passport = require('passport'),
+	routes = require('./routes'),
+	Evernote = require('evernote');
 
 var app = module.exports = express();
-
-var client = new Evernote.Client.new({
-	consumerKey: 'kkaliannan',
-	consumerSecret: 'ec2b2a3c0b579321',
-  sandbox: true
-});
-
-client.getRequestToken('localhost:3000/api/callback', function(error, oauthToken, oauthTokenSecret, results) {
-  // store tokens in the session
-  // and then redirect to client.getAuthorizeUrl(oauthToken)
-});
-
-// Now you can make other API calls
-var client = new Evernote.Client({token: oauthAccessToken});
-var noteStore = client.getNoteStore();
-notebooks = noteStore.listNotebooks(function(err, notebooks) {
-  // run this code
-});
-
+// mongoose.connect(configDB.url)
 
 /**
  * Configuration
  */
+ // app.configure(function(){
+ //   app.set('port', process.env.PORT || 3000);
+ //   // app.set('views', __dirname + '/views');
+ //   // app.set('view engine', 'jade');
+ //   app.use(express.favicon());
+ //   app.use(express.logger('dev'));
+ //   app.use(express.bodyParser());
+ //   app.use(express.methodOverride());
+ //   app.use(express.cookieParser('secret'));
+ //   app.use(express.session());
+ //   app.use(function(req, res, next) {
+ //     res.locals.session = req.session;
+ //     next();
+ //   });
+
+ //   app.use(app.router);
+ //   // app.use(require('less-middleware')({src: __dirname + '/public'}));
+ //   app.use(express.static(path.join(__dirname, 'public')));
+ // });
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.use(express.logger('dev'));
-app.use(express.bodyParser()); 	
-app.use(express.methodOverride()); 	
-//app.use(app.router); – not sure if we need this
 
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.cookieParser('secret'));
+app.use(express.session());
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
+
+// app.use(passport.initialize());
+app.use(express.session());
 // development only
 if (app.get('env') === 'development') {
 	app.use(express.errorHandler());
@@ -63,7 +74,12 @@ app.use("/lib", express.static(__dirname + "/public/lib"));
 
 // JSON API
 app.get('/api/name', api.name);
-app.get('/api/quantify', api.quantifySemtin)
+
+// Routes
+app.get('/', routes.index);
+app.get('/oauth', routes.oauth);
+app.get('/oauth_callback', routes.oauth_callback);
+app.get('/clear', routes.clear);
 
 // redirect all others to the index (HTML5 history)
 app.all("/*", function(req, res, next) {
