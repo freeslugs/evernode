@@ -6,28 +6,13 @@ var express = require('express'),
 	api = require('./routes/api'),
 	http = require('http'),
 	path = require('path'),
-	hostName = "http://sandbox.evernote.com"; 
+	hostName = "http://sandbox.evernote.com",
+	passport = require('passport'),
+	routes = require('./routes'),
+	Evernote = require('evernote');
 
 var app = module.exports = express();
-
-var client = new Evernote.Client.new({
-	consumerKey: 'kkaliannan',
-	consumerSecret: 'ec2b2a3c0b579321',
-  sandbox: true
-});
-
-client.getRequestToken('localhost:3000/api/callback', function(error, oauthToken, oauthTokenSecret, results) {
-  // store tokens in the session
-  // and then redirect to client.getAuthorizeUrl(oauthToken)
-});
-
-// Now you can make other API calls
-var client = new Evernote.Client({token: oauthAccessToken});
-var noteStore = client.getNoteStore();
-notebooks = noteStore.listNotebooks(function(err, notebooks) {
-  // run this code
-});
-
+// mongoose.connect(configDB.url)
 
 /**
  * Configuration
@@ -35,15 +20,17 @@ notebooks = noteStore.listNotebooks(function(err, notebooks) {
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.use(express.logger('dev'));
-app.use(express.bodyParser()); 	
-app.use(express.methodOverride()); 	
-//app.use(app.router); – not sure if we need this
+// app.use(express.logger('dev'));
+// app.use(express.bodyParser()); 	
+// app.use(express.methodOverride()); 	
+
+app.use(passport.initialize());
+app.use(passport.session()); // enables persistent login sessions
 
 // development only
-if (app.get('env') === 'development') {
-	app.use(express.errorHandler());
-}
+// if (app.get('env') === 'development') {
+// 	app.use(express.errorHandler());
+// }
 
 // production only
 if (app.get('env') === 'production') {
@@ -63,7 +50,12 @@ app.use("/lib", express.static(__dirname + "/public/lib"));
 
 // JSON API
 app.get('/api/name', api.name);
-app.get('/api/quantify', api.quantifySemtin)
+
+// Routes
+app.get('/', routes.index);
+app.get('/oauth', routes.oauth);
+app.get('/oauth_callback', routes.oauth_callback);
+app.get('/clear', routes.clear);
 
 // redirect all others to the index (HTML5 history)
 app.all("/*", function(req, res, next) {
