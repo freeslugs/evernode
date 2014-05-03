@@ -10,21 +10,23 @@ var express = require('express'),
 
 var app = module.exports = express();
 
-var options,oauth;
- options = {
-    consumerKey: 'kkaliannan',
-    consumerSecret: 'ec2b2a3c0b579321',
-    callbackUrl : 'locahost:3000/api/callback',
-    signatureMethod : "HMAC-SHA1",
-};
-oauth = OAuth(options);
-oauth.request({'method': 'GET', 'url': hostName + '/oauth', 'success': success, 'failure': failure});
+var client = new Evernote.Client.new({
+	consumerKey: 'kkaliannan',
+	consumerSecret: 'ec2b2a3c0b579321',
+  sandbox: true
+});
+client.getRequestToken('localhost:3000/api/callback', function(error, oauthToken, oauthTokenSecret, results) {
+  // store tokens in the session
+  // and then redirect to client.getAuthorizeUrl(oauthToken)
+});
 
-var verifier = <your verifier>;
-var oauth_token = <your oauth token>;
-var secret = <oauth secret from step 1>;
-oauth.setVerifier(verifier);
-oauth.setAccessToken([got_oauth,secret]);
+// Now you can make other API calls
+var client = new Evernote.Client({token: oauthAccessToken});
+var noteStore = client.getNoteStore();
+notebooks = noteStore.listNotebooks(function(err, notebooks) {
+  // run this code
+});
+
 
 /**
  * Configuration
