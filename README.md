@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+EVERNODE
+
+DisruptNY hackathon project
+
+
+=======
 # Express Angular Seed
 
 [Express.js](expressjs.com) [Angular.js](http://angularjs.org/) Seed 
@@ -44,3 +51,4 @@ MIT
 
 ### Credits
 Shout out to [btford](https://github.com/btford) who created the [angular-express-seed](https://github.com/btford/angular-express-seed) with jade. Used btford's work as a starting point.
+>>>>>>> a0935556e4694cb750ef268cb7147ec7ac8710a9
