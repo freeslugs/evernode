@@ -82,7 +82,7 @@ app.get('/oauth_callback', routes.oauth_callback);
 app.get('/clear', routes.clear);
 
 // redirect all others to the index (HTML5 history)
-app.all("/home", function(req, res, next) {
+app.all("/*", function(req, res, next) {
 	res.sendfile("index.html", { root: __dirname + "/public" });
 });
 
