@@ -5,7 +5,9 @@ var callbackUrl = "http://localhost:3000/oauth_callback";
 
 // home page
 exports.index = function(req, res) {
+  console.log(req);
   if(req.session.oauthAccessToken) {
+    console.log('I am here');
     var token = req.session.oauthAccessToken;
     var client = new Evernote.Client({
       token: token,
@@ -16,8 +18,12 @@ exports.index = function(req, res) {
       req.session.notebooks = notebooks;
       res.render('index');
     });
-  } else {
-    res.render('index');
+  } 
+  else {
+    console.log('rendering html');
+    res.render('index.html');
+    
+    // res.sendfile("index.html", { root: __dirname + "/public" });
   }
 };
 

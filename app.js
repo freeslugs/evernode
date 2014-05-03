@@ -17,20 +17,44 @@ var app = module.exports = express();
 /**
  * Configuration
  */
+ // app.configure(function(){
+ //   app.set('port', process.env.PORT || 3000);
+ //   // app.set('views', __dirname + '/views');
+ //   // app.set('view engine', 'jade');
+ //   app.use(express.favicon());
+ //   app.use(express.logger('dev'));
+ //   app.use(express.bodyParser());
+ //   app.use(express.methodOverride());
+ //   app.use(express.cookieParser('secret'));
+ //   app.use(express.session());
+ //   app.use(function(req, res, next) {
+ //     res.locals.session = req.session;
+ //     next();
+ //   });
+
+ //   app.use(app.router);
+ //   // app.use(require('less-middleware')({src: __dirname + '/public'}));
+ //   app.use(express.static(path.join(__dirname, 'public')));
+ // });
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-// app.use(express.logger('dev'));
-// app.use(express.bodyParser()); 	
-// app.use(express.methodOverride()); 	
 
-app.use(passport.initialize());
-app.use(passport.session()); // enables persistent login sessions
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.cookieParser('secret'));
+app.use(express.session());
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
 
+// app.use(passport.initialize());
+app.use(express.session());
 // development only
-// if (app.get('env') === 'development') {
-// 	app.use(express.errorHandler());
-// }
+if (app.get('env') === 'development') {
+	app.use(express.errorHandler());
+}
 
 // production only
 if (app.get('env') === 'production') {
@@ -58,7 +82,7 @@ app.get('/oauth_callback', routes.oauth_callback);
 app.get('/clear', routes.clear);
 
 // redirect all others to the index (HTML5 history)
-app.all("/*", function(req, res, next) {
+app.all("/home", function(req, res, next) {
 	res.sendfile("index.html", { root: __dirname + "/public" });
 });
 
