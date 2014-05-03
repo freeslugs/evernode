@@ -15,6 +15,7 @@ var client = new Evernote.Client.new({
 	consumerSecret: 'ec2b2a3c0b579321',
   sandbox: true
 });
+
 client.getRequestToken('localhost:3000/api/callback', function(error, oauthToken, oauthTokenSecret, results) {
   // store tokens in the session
   // and then redirect to client.getAuthorizeUrl(oauthToken)
@@ -62,6 +63,7 @@ app.use("/lib", express.static(__dirname + "/public/lib"));
 
 // JSON API
 app.get('/api/name', api.name);
+app.get('/api/quantify', api.quantifySemtin)
 
 // redirect all others to the index (HTML5 history)
 app.all("/*", function(req, res, next) {
