@@ -1,5 +1,5 @@
 var Evernote = require('evernote').Evernote;
-var parse = require('./parse.js');
+var parse = require('./parser.js');
 var config = require('../config.json');
 var callbackUrl = "http://localhost:3000/oauth_callback";
 
