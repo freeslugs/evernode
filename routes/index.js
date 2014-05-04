@@ -6,7 +6,6 @@ var callbackUrl = "http://localhost:3000/oauth_callback";
 // home page
 exports.index = function(req, res) {  
   if(req.session.oauthAccessToken) {
-    console.log('I am here');
     var token = req.session.oauthAccessToken;
     var client = new Evernote.Client({
       token: token,
@@ -18,30 +17,48 @@ exports.index = function(req, res) {
     //   res.render('index.html');
     // });
     var noteStore = client.getNoteStore();
+    var notesArray = [];
 
+    // Get all notebooks from user
     noteStore.listNotebooks(function(err, notebooks){
       req.session.notebooks = notebooks;
-      var noteGuid = notebooks[0].guid;
-      console.log('noteGuid :' + noteGuid);
-
+      var notebookId = notebooks[0].guid;    // Get notebook id 
       var filter = new Evernote.NoteFilter();
-      filter['notebookGuid'] = noteGuid;
-      console.log(filter);
-      var results = new Evernote.NotesMetadataResultSpec();
-      results.includeTitle = true;
-      results.includeCreated = true;
-      console.log(results);
-      noteStore.findNotesMetadata(filter, 0, 15, results, function(err, notes) {
+      filter['notebookGuid'] = notebookId;
+      
+      var specs = new Evernote.NotesMetadataResultSpec();
+      specs.includeTitle = true;
+      specs.includeCreated = true;
+
+      // Get notes from each notebook
+      noteStore.findNotesMetadata(filter, 0, 15, specs, function(err, notes) {
+
+        // Get data from each note
         console.log('notes');
         console.log(notes);
-        noteStore.getNote(notes.notes[0].guid, true, true, true, true, function(err, content) {
-          console.log(content);
-        });
-      });
+        var notes = notes.notes;
+        // for (var i = 0; i < notes.length; i++) {
+        //   var noteObj = notes[i];
+        //   noteStore.getNoteContent(noteObj.guid, function(err, result) {
+        //     console.log('result >>>');
+        //     console.log(result);
+        //   });
+        // }
 
-      // console.log(notebooks);
+        for (var i = 0; i < notes.length; i++) {
+          var noteObj = notes[i];
+          noteStore.getNote(noteObj.guid, true, true, true, true, function(err, result) {
+            var note = {
+              content : result.content,
+              title: result.title
+            }
+            notesArray.push(note);
+          });
+        };
+      });
     });
-    res.render('index.html');
+    
+    // res.render('index.html');
   } 
   else {
     console.log('rendering html');
@@ -49,6 +66,7 @@ exports.index = function(req, res) {
     
     // res.sendfile("index.html", { root: __dirname + "/public" });
   }
+  console.log(notesArray);
 };
 
 // OAuth
