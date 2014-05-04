@@ -1,7 +1,7 @@
 //The API of your application
 
 module.exports = {
-  get_para_sim_score         : get_para_sim_score,
+  similarScore               : similarScore,
   merge_doc_into_lecture     : merge_doc_into_lecture,
   noteToLecture              : noteToLecture
 }
