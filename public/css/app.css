@@ -17,15 +17,16 @@ nav.navbar { margin-bottom:0; position:absolute; top:0; width:100%; z-index:2; }
 
 .navbar-default { background-color: transparent !important; border: none !important; }
 
-.wrap { position:relative; overflow:hidden; width:100%; max-height: 500px; }
+.wrap { position:relative; overflow:hidden; width:100%; max-height: 650px; }
   .wrap img.hero { position: relative; z-index: 0; max-width: 100%; z-index:1; }
-  .wrap h1, .wrap h2, .wrap a.btn { position:absolute; z-index:2; width:600px; text-align:center; margin-left:-300px; color:#fff; background: rgba(0, 0, 0, 0.5); padding:10px 0; }
-  .wrap h1 { top:50px; left:50%; }
-  .wrap h2 { top:150px; left:50%; }
-  .wrap a.btn { top:250px; left:50%; margin-left:-75px; width:150px; text-align:center; }
+  .wrap h1, .wrap h2, .wrap a.btn { position:absolute; z-index:2; width:740px; text-align:center; margin-left:-370px; color:#fff; background: rgba(0, 0, 0, 0.5); padding:10px 0; left:50%; font-size:48px; }
+  .wrap h1 { top:110px; }
+  .wrap h2 { top:206px; width:340px; margin-left:-170px; font-size:40px; font-weight:800;}
+  .wrap a.btn { top:350px; margin-left:-130px; width:260px; text-align:center; font-size:40px; line-height:1.5; }
 
-div.wrap.view h1 { top:360px; font-weight:800; }
-  div.wrap.view h2 { top:420px; font-size:18px; color:#f1f1f1; }
+div.wrap.view h1, div.wrap.view h2 { background:transparent; }
+div.wrap.view h1 { top:480px; font-weight:800; }
+  div.wrap.view h2 { top:540px; font-size:18px; color:#f1f1f1; font-weight:400; }
 
 div.header { border-bottom:1px solid #f1f1f1; min-height:102px; margin-top:100px; }
   div.header h1 { line-height:56px; }
@@ -41,3 +42,19 @@ div.lecture { border-bottom:1px solid #f1f1f1; position:relative; padding:30px 0
 div.text { margin-top:80px; font-family: 'Droid Serif', serif; font-weight:400; }
 
 div.node { font-size:20px; line-height:1.7; color:#888; margin:0 0 40px 0; }
+
+span.step { background: #ccc; border-radius: 0.8em; -moz-border-radius: 0.8em; -webkit-border-radius: 0.8em; color: #ffffff; display: inline-block; font-weight: bold; line-height: 1.6em; margin-right: 5px; text-align: center; width: 1.6em; }
+
+ul.notes { list-style:none; margin:40px 0 0 0; padding:0; }
+  ul.notes li { display:block; width:100%; margin:15px 0; }
+  ul.notes li a { display:block; background-color:#f1f1f1; padding:0px 15px; -o-transition:.5s; -ms-transition:.5s; -moz-transition:.5s; -webkit-transition:.5s; transition:.5s; }
+  ul.notes li a strong { display:block; font-size:24px; font-weight:400; color:#111; width:45%; float:left; line-height:80px;}
+  ul.notes li a span { display:block; color:#999; width:45%; float:right; text-align:right; line-height: 80px;}
+  ul.notes li a:hover { text-decoration:none; background-color:#ddd; }
+  ul.notes li.active a { background-color:#ee2b57; }
+  ul.notes li.active a strong, ul.notes li.active a span { color:#fff; }
+
+
+textarea { border:1px solid #ddd; width:100%; min-height:100px; margin-top:40px; }
+
+div.buttons { margin-top:60px; }
