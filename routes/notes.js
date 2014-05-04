@@ -4,6 +4,8 @@ var Evernote = require('evernote').Evernote;
 // var parse = require('./parse.js');
 var config = require('../config.json');
 
+var mongo = require('./mongo.js');
+
 module.exports = {
   getNotes: getNotes
 }
@@ -38,9 +40,6 @@ function getNotes(req, res) {
         
         // Get data from each note
         async.forEachSeries(result.notes, function(noteObj, callback){
-          console.log('heelllo');
-          console.log(noteObj);
-          // console.log(noteList[i]);
           createNote(noteObj, function (note) {
             notesArray.push(note);
             callback();
@@ -49,9 +48,11 @@ function getNotes(req, res) {
           if(err) {
             console.log(err);
           }
-          console.log("all done!");
           console.log(notesArray);
-          res.json(notesArray);
+          mongo.saveNotes(notesArray, function () {
+            console.log('done!');
+            res.json(notesArray);
+          });
         });
       });
     });

@@ -7,14 +7,12 @@ var Schema = mongoose.Schema;
 // define the schema for our user model
 var lectureSchema =  new Schema({
 	// GLOBALS
-	name                   : String,
-    date                   : Date,
+	title                  : String,
+    authors                : [],
     sections               : [{
-        bullet             : [{
-                content       : String,
-                score         : Number,
-                author        : String
-        }]
+        content       : String,
+        score         : Number,
+        author        : String
     }]                  
 });
 

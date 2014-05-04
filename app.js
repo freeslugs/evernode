@@ -11,33 +11,17 @@ var express = require('express'),
 	// routes = require('./routes'),
 	authentication = require('./routes/authentication'),
 	notes = require('./routes/notes'),
-	Evernote = require('evernote');
+	configDB = require('./config/database'),
+	Evernote = require('evernote'),
+	lectures = require('./routes/lectures');
+	mongoose = require('mongoose');
 
 var app = module.exports = express();
-// mongoose.connect(configDB.url)
+mongoose.connect(configDB.url)
 
 /**
  * Configuration
  */
- // app.configure(function(){
- //   app.set('port', process.env.PORT || 3000);
- //   // app.set('views', __dirname + '/views');
- //   // app.set('view engine', 'jade');
- //   app.use(express.favicon());
- //   app.use(express.logger('dev'));
- //   app.use(express.bodyParser());
- //   app.use(express.methodOverride());
- //   app.use(express.cookieParser('secret'));
- //   app.use(express.session());
- //   app.use(function(req, res, next) {
- //     res.locals.session = req.session;
- //     next();
- //   });
-
- //   app.use(app.router);
- //   // app.use(require('less-middleware')({src: __dirname + '/public'}));
- //   app.use(express.static(path.join(__dirname, 'public')));
- // });
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -86,8 +70,14 @@ app.get('/oauth', authentication.oauth);
 app.get('/oauth_callback', authentication.oauth_callback);
 app.get('/clear', authentication.clear);
 
+// app.get('/lectures', lectures.noteToLecture);
+
 //mongo
 app.get('/notes', notes.getNotes);
+app.get('/lectures', lectures.getLectures);
+app.get('/createlecture', lectures.createLecture);
+app.get('/getlecture', lectures.getLectureById);
+
 
 // redirect all others to the index (HTML5 history)
 app.all("/*", function(req, res, next) {

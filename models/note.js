@@ -7,8 +7,8 @@ var Schema = mongoose.Schema;
 // define the schema for our user model
 var noteSchema =  new Schema({
 	// GLOBALS
-	name       : String,
-    date       : Date,
+	title      : String,
+    id 	       : String,
     author     : String,
     content    : String                 
 });
