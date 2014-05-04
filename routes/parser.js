@@ -66,37 +66,64 @@ function get_para_sim_score(para1, para2) {
 
 function merge_doc_into_lecture(lec1, doc2) {
   //Array of paras
-  lec2 = construct_lecture_from_doc(doc2);
+  lec2 = noteToLecture(doc2);
   
   //Identify longer document
   lec1_num_paras = lec1.length;
+  console.log('lec1_num_paras');
+  console.log(lec1_num_paras);
   lec2_num_paras = lec2.length;
+  console.log('lec2_num_paras');
+  console.log(lec2_num_paras);
   
   if (lec1_num_paras > lec2_num_paras) {
     lec_l = lec1;
     lec_s = lec2;
-  } else {
+  } 
+  else {
     lec_l = lec2;
     lec_s = lec1;
   }
+  console.log('lec_l');
+  console.log(lec_l);
+  console.log('lec_s');
+  console.log(lec_s);
   
   //Form out arr
   out_arr   = lec_l;
+  console.log('out_arr');
+  console.log(out_arr);
   
   //Iterate over shorter doc and map to longer paras
   lec_s_len = lec_s.length;
+  console.log('lec_s_len');
+  console.log(lec_s_len);
   lec_l_len = lec_l.length;
+  console.log('lec_l.length');
+  console.log(lec_l.length);
+
   for(i=0;i<lec_s_len;i++) {
-    shorter_lec_para = lec_s[i][0];
+    shorter_lec_para = lec_s[i].content;
+    console.log('shorter_lec_para');
+    console.log(shorter_lec_para);
     sim_scores       = [];
     
-    for(j=0;j<lec_l_len;j++) {
+    
+
+    for( j = 0; j < lec_l_len; j++) {
       longer_lec_para = lec_l[j][0];
+      
       sim_score       = get_para_sim_score(shorter_lec_para, longer_lec_para);
       sim_scores.push(sim_score);
     }
     
     var ind_max = sim_scores.indexOf(Math.max.apply(Math, sim_scores));
+    console.log('ind_max');
+    console.log(ind_max);  
+    if(ind_max < 0) {
+      ind_max = 1;
+    }
+    
     out_arr[ind_max].push(shorter_lec_para);
   }
   

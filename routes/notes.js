@@ -6,8 +6,11 @@ var config = require('../config.json');
 
 var mongo = require('./mongo.js');
 
+var Note = require('../models/note');
+
 module.exports = {
-  getNotes: getNotes
+  getNotes: getNotes, 
+  getNoteById: getNoteById
 }
 
 var noteStore;
@@ -61,6 +64,18 @@ function getNotes(req, res) {
     res.redirect('/');
   }
 };
+
+
+function getNoteById(req, res) {
+  var noteId = req.param('noteId');
+  console.log('noteId');
+  console.log(noteId);
+  Note.findById(noteId, function(err, note) {
+    console.log('find note in db');
+    if(err) { console.log('error')};
+    res.json(note);
+  });
+}
 
 function createNote (noteObj, cb) {
   noteStore.getNoteContent(noteObj.guid, function(err, response) {

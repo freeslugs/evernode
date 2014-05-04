@@ -10,6 +10,7 @@
     "passport-evernote": "~0.1.1",
     "passport": "~0.2.0",
     "ejs": "~1.0.0",
-    "async": "^0.8.0"
+    "async": "^0.8.0",
+    "natural": "~0.1.27"
   }
 }

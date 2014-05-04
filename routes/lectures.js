@@ -70,17 +70,18 @@ function createLecture(req, res) {
  */
 function getLectureById(req, res) {
 	var lectureId = req.param('lectureId');
-
-	Lecture.find({ id: lectureId}, function(err, lecture) {
-		console.log(lecture);
-		if(err) {
-			console.log('error');
-		}
+	console.log('lectureId');
+	console.log(lectureId);
+	Lecture.findById(lectureId, function(err, lecture) {
+		console.log('find lecture in db');
+		if(err) { console.log('error')};
+		
 		res.json(lecture);
 	});
 }
 
 function merge(req, res) {
+		
 	var noteId = req.param('noteId');
 	var lectureId = req.param('lectureId');
 
@@ -89,13 +90,23 @@ function merge(req, res) {
 
 	console.log('lectureId');
 	console.log(lectureId);
+
+	console.log('merging');
+	// res.json('merging');
+
 	// Get note from db
-	// Note.find({id: noteId}, function(err, note) {
-	// 	console.log(note);
-	// 	Lecture.find({id: noteId}, function(err, lecture) {
-	// 		console.log(lecture);
-	// 		var updatedLecture =  parser.merge_doc_into_lecture(note, lecture);
-	// 		lecture.update({sections: updatedLecture});
-	// 	});
-	// });
+	
+	Note.findById(noteId, function(err, note) {
+		// console.log('looking for note in db');
+		// console.log(note);
+		Lecture.findById(lectureId, function(err, lecture) {
+		// 	console.log('looking for lecture in db');
+			// res.json(lecture);
+			var updatedContent =  parser.merge_doc_into_lecture(lecture.sections, note.content);
+			console.log('updatedContent');
+			console.log(updatedContent);
+			res.json(updatedContent);
+			// lecture.update({sections: updatedLecture});
+		});
+	});
 }

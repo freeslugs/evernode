@@ -77,6 +77,7 @@ app.get('/notes', notes.getNotes);
 app.get('/lectures', lectures.getLectures);
 app.get('/createlecture', lectures.createLecture);
 app.get('/getlecture', lectures.getLectureById);
+app.get('/getnote', notes.getNoteById);
 app.get('/merge', lectures.merge);
 
 
