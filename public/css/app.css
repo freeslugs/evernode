@@ -1,7 +1,43 @@
-nav.navbar { margin-bottom:0; }
-  nav.navbar .navbar-brand { margin-left:15px !important; }
+
+body { height: 2000px; }
+
+
+.container-fluid { padding:0 !important; }
+.row.top { margin:0 !important; }
+.hero { padding:0 !important; }
+
+body a.btn.btn-success { background-color:#ee2b57 !important; border-color:#dd1c47 !important; -o-transition:.5s !important; -ms-transition:.5s !important; -moz-transition:.5s !important; -webkit-transition:.5s !important; transition:.5s !important; }
+  body a.btn.btn-success:hover { border-color:#dd1c47 !important; background-color:#dd1c47 !important; }
+
+nav.navbar { margin-bottom:0; position:absolute; top:0; width:100%; z-index:2; }
+  nav.navbar .navbar-brand { margin:15px 0 0 15px !important; color:#fff; background-color:#000; line-height:45px; padding:0 15px; -o-transition:.5s; -ms-transition:.5s; -moz-transition:.5s; -webkit-transition:.5s; transition:.5s; }
+  nav.navbar .navbar-brand span { color:#ee2b57; }
+  nav.navbar .navbar-brand:hover { background-color:#333; }
   nav.navbar .navbar-right a.btn { margin:5px 15px; }
 
-.wrap { position:relative; overflow:hidden; width:100%; height: 600px; }
-  .wrap img.hero { position: relative; z-index: 0; margin: -40px 0; max-width: 100%; }
+.navbar-default { background-color: transparent !important; border: none !important; }
 
+.wrap { position:relative; overflow:hidden; width:100%; max-height: 500px; }
+  .wrap img.hero { position: relative; z-index: 0; max-width: 100%; z-index:1; }
+  .wrap h1, .wrap h2, .wrap a.btn { position:absolute; z-index:2; width:600px; text-align:center; margin-left:-300px; color:#fff; background: rgba(0, 0, 0, 0.5); padding:10px 0; }
+  .wrap h1 { top:50px; left:50%; }
+  .wrap h2 { top:150px; left:50%; }
+  .wrap a.btn { top:250px; left:50%; margin-left:-75px; width:150px; text-align:center; }
+
+div.wrap.view h1 { top:360px; font-weight:800; }
+  div.wrap.view h2 { top:420px; font-size:18px; color:#f1f1f1; }
+
+div.header { border-bottom:1px solid #f1f1f1; min-height:102px; margin-top:100px; }
+  div.header h1 { line-height:56px; }
+
+div.lecture { border-bottom:1px solid #f1f1f1; position:relative; padding:30px 0; }
+  div.lecture h3 { font-size:62px; margin:0; }
+  div.lecture div.sub { margin:10px 0 0 0; color:#555; font-size:18px; font-weight:300;  }
+  div.lecture div.sub i { margin-right:5px; }
+  div.lecture div.sub i ~ i { margin-left:15px; }
+  div.lecture a.arrow { font-size:108px; position:absolute; right:10px; top: 0px; color:#eee; -o-transition:.5s; -ms-transition:.5s; -moz-transition:.5s; -webkit-transition:.5s; transition:.5s; }
+  div.lecture:hover a.arrow { color:#777; }
+
+div.text { margin-top:80px; font-family: 'Droid Serif', serif; font-weight:400; }
+
+div.node { font-size:20px; line-height:1.7; color:#888; margin:0 0 40px 0; }

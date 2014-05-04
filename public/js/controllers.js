@@ -15,19 +15,17 @@ angular.module('myApp.controllers', []).
     });
 
   }).
-  controller('HomeController', function ($scope) {
-  // write Ctrl here
-
+  controller('HomeController', function ($scope, parallaxHelper) {
+    $scope.background = parallaxHelper.createAnimator(-0.3, 150, -150);
   }).
   controller('DashboardController', function ($scope) {
-  // write Ctrl here
 
   }).
   controller('NewController', function ($scope) {
   // write Ctrl here
 
   }).
-  controller('ViewController', function ($scope) {
-  // write Ctrl here
+  controller('ViewController', function ($scope, parallaxHelper) {
+    $scope.background = parallaxHelper.createAnimator(-0.3, 150, -150);
 
   });
