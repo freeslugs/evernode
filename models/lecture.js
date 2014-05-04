@@ -1,4 +1,4 @@
-// ./models/notes.js
+// ./models/lecture.js
 
 // load the modules we need	
 var mongoose = require('mongoose');
