@@ -66,8 +66,15 @@ function createNote (noteObj, cb) {
     if(err) {
       console.log(err);
     }
+    var formattedResponse = response;
+    formattedResponse = formattedResponse.replace(/(<\/(div|ui|li)>)/ig,"\n");
+    formattedResponse = formattedResponse.replace(/(<(li)>)/ig," - ");
+    formattedResponse = formattedResponse.replace(/(<([^>]+)>)/ig,"");
+    formattedResponse = formattedResponse.replace(/(\r\n|\n|\r)/gm," ");
+    formattedResponse = formattedResponse.replace(/(\s+)/gm," ");
+
     var note = {
-      content : response,
+      content : formattedResponse,
       title: noteObj.title,
       author: user_id,
       id: noteObj.guid
