@@ -1,7 +1,6 @@
 //The API of your application
 
 module.exports = {
-  similarScore               : similarScore,
   merge_doc_into_lecture     : merge_doc_into_lecture,
   noteToLecture              : noteToLecture
 }
@@ -25,7 +24,7 @@ function noteToLecture(doc) {
   return doc_arr_arr
 }
 
-function similarScore(para1, para2) {
+function get_para_sim_score(para1, para2) {
   //Function input args example
   //para1 = 'The national railroad network was completed with the work of Chinese immigrants and large-scale mining and factories industrialized the Northeast and Midwest.';
   //para2 = 'The national railroad network was completed with the work of Chinese and Japanese.';

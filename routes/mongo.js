@@ -2,12 +2,12 @@ var Note = require('../models/note');
 var async = require('async');
 
 module.exports = {
-  saveNotes: saveNotes
+  saveNotes: saveNotes,
+  // saveLecture: saveLecture
 }
 
 // home page
 // 
-
 function saveNotes(notes, callback) {
 	async.forEachSeries(notes, function(note, cb) {
 		var dbNote = new Note();
@@ -35,3 +35,10 @@ function saveNotes(notes, callback) {
 		callback();
 	});
 }
+
+// function saveLecture(lecture, userId, callback) {
+	
+// 	lecture.save(function(err) {
+// 		callback();
+// 	});
+// }

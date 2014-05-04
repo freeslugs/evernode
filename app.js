@@ -70,10 +70,13 @@ app.get('/oauth', authentication.oauth);
 app.get('/oauth_callback', authentication.oauth_callback);
 app.get('/clear', authentication.clear);
 
-app.get('/lectures', lectures.retrieveNotes);
+// app.get('/lectures', lectures.noteToLecture);
 
 //mongo
 app.get('/notes', notes.getNotes);
+app.get('/lectures', lectures.getLectures);
+app.get('/createlecture', lectures.createLecture);
+app.get('/getlecture', lectures.getLectureById);
 
 
 // redirect all others to the index (HTML5 history)

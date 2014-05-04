@@ -51,7 +51,7 @@ function getNotes(req, res) {
           console.log(notesArray);
           mongo.saveNotes(notesArray, function () {
             console.log('done!');
-            res.redirect('/dashboard');
+            res.json(notesArray);
           });
         });
       });
