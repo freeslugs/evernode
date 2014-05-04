@@ -8,15 +8,16 @@ module.exports = {
 
 function retrieveNotes(req, res) {
 
-	var paramId = 'bd185701-783e-48ec-b6ed-5aaeebe3649e';
+	var paramId = '42fac1fd-5b2b-497e-8295-80055eb55a19';
 
-	Note.find({id: paramId}, function (err, note) { 	// Change to real variable later
-	  if (err) return console.error(err);
-	  console.log(note);
+	Note.find({id: paramId}, function (err, notes) { 	// Change to real variable later
+		if (err) return console.error(err);
+	  	console.log(notes);
 	  
-	  var arr_arr = parser.construct_lecture_from_doc(note);
-	  
+		var parsedArray = parser.noteToLecture(notes[0].content);
+		res.json(parsedArray);
 	});
+	
 }
 
 

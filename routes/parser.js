@@ -3,21 +3,21 @@
 module.exports = {
   get_para_sim_score         : get_para_sim_score,
   merge_doc_into_lecture     : merge_doc_into_lecture,
-  construct_lecture_from_doc : construct_lecture_from_doc
+  noteToLecture              : noteToLecture
 }
 
 //Turn doc into array of arrays
-function construct_lecture_from_doc(doc) {
+function noteToLecture(doc) {
   //Function input args example
   //doc = "here is one paragraph.\n\nhere is a second paragraph.\n\nhere is a third paragraph.";
   
   //Array of paras
-  doc_arr = doc.split( "\n\n" );
+  doc_arr = doc.split(' - ');
   
   //Form out arr
   doc_arr_arr   = [];
   doc_len       = doc_arr.length;
-  for(i=0;i<doc_len;i++) {
+  for(i = 0; i < doc_len; i++) {
     doc_arr_arr[i] = [doc_arr[i]];
   }
   
@@ -25,7 +25,7 @@ function construct_lecture_from_doc(doc) {
   return doc_arr_arr
 }
 
-function get_para_sim_score(para1, para2) {
+function similarScore(para1, para2) {
   //Function input args example
   //para1 = 'The national railroad network was completed with the work of Chinese immigrants and large-scale mining and factories industrialized the Northeast and Midwest.';
   //para2 = 'The national railroad network was completed with the work of Chinese and Japanese.';
