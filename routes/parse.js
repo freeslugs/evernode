@@ -104,4 +104,3 @@ function merge_doc_into_lecture(lec1, doc2) {
   return out_arr;
 }
 
-

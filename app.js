@@ -77,7 +77,8 @@ app.use("/lib", express.static(__dirname + "/public/lib"));
 app.get('/api/name', api.name);
 
 // Routes
-app.get('/', routes.index);
+// app.get('/', routes.index);
+app.get('/notes', routes.getNotes);
 app.get('/oauth', routes.oauth);
 app.get('/oauth_callback', routes.oauth_callback);
 app.get('/clear', routes.clear);

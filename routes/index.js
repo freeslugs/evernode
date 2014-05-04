@@ -1,21 +1,17 @@
 var Evernote = require('evernote').Evernote;
-
+var parse = require('./parse.js');
 var config = require('../config.json');
 var callbackUrl = "http://localhost:3000/oauth_callback";
 
 // home page
-exports.index = function(req, res) {  
+exports.getNotes = function(req, res) {  
   if(req.session.oauthAccessToken) {
     var token = req.session.oauthAccessToken;
     var client = new Evernote.Client({
       token: token,
       sandbox: config.SANDBOX
     });
-    // var userStore = client.getUserStore();
-    // userStore.getUser(function(err, user) {
-    //   console.log(user);
-    //   res.render('index.html');
-    // });
+
     var noteStore = client.getNoteStore();
     var notesArray = [];
 
@@ -37,13 +33,6 @@ exports.index = function(req, res) {
         console.log('notes');
         console.log(notes);
         var notes = notes.notes;
-        // for (var i = 0; i < notes.length; i++) {
-        //   var noteObj = notes[i];
-        //   noteStore.getNoteContent(noteObj.guid, function(err, result) {
-        //     console.log('result >>>');
-        //     console.log(result);
-        //   });
-        // }
 
         for (var i = 0; i < notes.length; i++) {
           var noteObj = notes[i];
@@ -57,17 +46,19 @@ exports.index = function(req, res) {
         };
       });
     });
-    
-    // res.render('index.html');
   } 
   else {
     console.log('rendering html');
     res.render('index.html');
-    
-    // res.sendfile("index.html", { root: __dirname + "/public" });
   }
   console.log(notesArray);
+  return(notesArray);
 };
+
+
+
+
+
 
 // OAuth
 exports.oauth = function(req, res) {
