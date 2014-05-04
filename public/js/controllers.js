@@ -3,23 +3,24 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('AppCtrl', function ($scope, $http) {
+  controller('AppCtrl', function ($scope) {
 
-    $http({
-      method: 'GET',
-      url: '/api/name'
-    }).success(function (data, status, headers, config) {
-      $scope.name = data.name;
-    }).error(function (data, status, headers, config) {
-      $scope.name = 'Error!'
-    });
+    
 
   }).
   controller('HomeController', function ($scope, parallaxHelper) {
     $scope.background = parallaxHelper.createAnimator(-0.3, 150, -150);
   }).
-  controller('DashboardController', function ($scope) {
-
+  controller('DashboardController', function ($scope, $http) {
+    $http({
+      method: 'GET',
+      url: '/lectures'
+    }).success(function (data, status, headers, config) {
+      // $scope.name = data.name;
+      console.log(data);
+    }).error(function (data, status, headers, config) {
+      // $scope.name = 'Error!'
+    });
   }).
   controller('NewController', function ($scope) {
   // write Ctrl here

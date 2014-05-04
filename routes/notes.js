@@ -13,7 +13,7 @@ module.exports = {
 var noteStore;
 var user_id;
 
-function getNotes(req, res) {  
+function getNotes(req, res) {
   if(req.session.oauthAccessToken) {
     var token = req.session.oauthAccessToken;
     var client = new Evernote.Client({

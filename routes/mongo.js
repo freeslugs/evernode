@@ -3,7 +3,7 @@ var async = require('async');
 
 module.exports = {
   saveNotes: saveNotes,
-  // saveLecture: saveLecture
+  saveLecture: saveLecture
 }
 
 // home page
@@ -36,9 +36,9 @@ function saveNotes(notes, callback) {
 	});
 }
 
-// function saveLecture(lecture, userId, callback) {
-	
-// 	lecture.save(function(err) {
-// 		callback();
-// 	});
-// }
+function saveLecture(lecture, userId, callback) {	
+	// Lecture.find({title: lecture.title}, function(err, ) )
+	lecture.save(function(err) {
+		callback();
+	});
+}

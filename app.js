@@ -77,6 +77,7 @@ app.get('/notes', notes.getNotes);
 app.get('/lectures', lectures.getLectures);
 app.get('/createlecture', lectures.createLecture);
 app.get('/getlecture', lectures.getLectureById);
+app.get('/merge', lectures.merge);
 
 
 // redirect all others to the index (HTML5 history)
