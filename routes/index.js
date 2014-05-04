@@ -4,8 +4,7 @@ var config = require('../config.json');
 var callbackUrl = "http://localhost:3000/oauth_callback";
 
 // home page
-exports.index = function(req, res) {
-  console.log(req);
+exports.index = function(req, res) {  
   if(req.session.oauthAccessToken) {
     console.log('I am here');
     var token = req.session.oauthAccessToken;
@@ -13,11 +12,36 @@ exports.index = function(req, res) {
       token: token,
       sandbox: config.SANDBOX
     });
+    // var userStore = client.getUserStore();
+    // userStore.getUser(function(err, user) {
+    //   console.log(user);
+    //   res.render('index.html');
+    // });
     var noteStore = client.getNoteStore();
+
     noteStore.listNotebooks(function(err, notebooks){
       req.session.notebooks = notebooks;
-      res.render('index.html');
+      var noteGuid = notebooks[0].guid;
+      console.log('noteGuid :' + noteGuid);
+
+      var filter = new Evernote.NoteFilter();
+      filter['notebookGuid'] = noteGuid;
+      console.log(filter);
+      var results = new Evernote.NotesMetadataResultSpec();
+      results.includeTitle = true;
+      results.includeCreated = true;
+      console.log(results);
+      noteStore.findNotesMetadata(filter, 0, 15, results, function(err, notes) {
+        console.log('notes');
+        console.log(notes);
+        noteStore.getNote(notes.notes[0].guid, true, true, true, true, function(err, content) {
+          console.log(content);
+        });
+      });
+
+      // console.log(notebooks);
     });
+    res.render('index.html');
   } 
   else {
     console.log('rendering html');
