@@ -74,7 +74,7 @@ app.use("/partials", express.static(__dirname + "/public/partials"));
 app.use("/lib", express.static(__dirname + "/public/lib"));
 
 // JSON API
-app.get('/api/name', api.name);
+// app.get('/api/name', api.name);
 
 // Routes
 // app.get('/', routes.index);
