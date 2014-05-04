@@ -3,64 +3,7 @@ var parse = require('./parse.js');
 var config = require('../config.json');
 var callbackUrl = "http://localhost:3000/oauth_callback";
 
-// home page
-exports.getNotes = function(req, res) {  
-  if(req.session.oauthAccessToken) {
-    var token = req.session.oauthAccessToken;
-    var client = new Evernote.Client({
-      token: token,
-      sandbox: config.SANDBOX
-    });
 
-    var noteStore = client.getNoteStore();
-    var notesArray = [];
-
-    // Get all notebooks from user
-    noteStore.listNotebooks(function(err, notebooks){
-      req.session.notebooks = notebooks;
-      var notebookId = notebooks[0].guid;    // Get notebook id 
-      var filter = new Evernote.NoteFilter();
-      filter['notebookGuid'] = notebookId;
-      
-      var specs = new Evernote.NotesMetadataResultSpec();
-      specs.includeTitle = true;
-      specs.includeCreated = true;
-
-      // Get notes from each notebook
-      noteStore.findNotesMetadata(filter, 0, 15, specs, function(err, notes) {
-
-        // Get data from each note
-        console.log('notes');
-        console.log(notes);
-        var notes = notes.notes;
-
-        for (var i = 0; i < notes.length; i++) {
-          var noteObj = notes[i];
-          noteStore.getNote(noteObj.guid, true, true, true, true, function(err, result) {
-            var note = {
-              content : result.content,
-              title: result.title
-            }
-            notesArray.push(note);
-          });
-        };
-      });
-    });
-  } 
-  else {
-    console.log('rendering html');
-    res.render('index.html');
-  }
-  console.log(notesArray);
-  return(notesArray);
-};
-
-
-
-
-
-
-// OAuth
 exports.oauth = function(req, res) {
   var client = new Evernote.Client({
     consumerKey: config.API_CONSUMER_KEY,
@@ -82,7 +25,6 @@ exports.oauth = function(req, res) {
       res.redirect(client.getAuthorizeUrl(oauthToken));
     }
   });
-
 };
 
 // OAuth callback
@@ -111,10 +53,11 @@ exports.oauth_callback = function(req, res) {
         req.session.edamExpires = results.edam_expires;
         req.session.edamNoteStoreUrl = results.edam_noteStoreUrl;
         req.session.edamWebApiUrlPrefix = results.edam_webApiUrlPrefix;
-        res.redirect('/');
+        res.redirect('/dashboard');
       }
     });
 };
+
 
 // Clear session
 exports.clear = function(req, res) {

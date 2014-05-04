@@ -1,8 +1,8 @@
 //The API of your application
 
 module.exports = {
-  "get_para_sim_score"         : get_para_sim_score
-  "merge_doc_into_lecture"     : merge_doc_into_lecture
+  "get_para_sim_score"         : get_para_sim_score,
+  "merge_doc_into_lecture"     : merge_doc_into_lecture,
   "construct_lecture_from_doc" : construct_lecture_from_doc
 }
 
@@ -104,4 +104,3 @@ function merge_doc_into_lecture(lec1, doc2) {
   return out_arr;
 }
 
-

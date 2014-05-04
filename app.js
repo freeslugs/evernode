@@ -8,7 +8,9 @@ var express = require('express'),
 	path = require('path'),
 	hostName = "http://sandbox.evernote.com",
 	passport = require('passport'),
-	routes = require('./routes'),
+	// routes = require('./routes'),
+	authentication = require('./routes/authentication'),
+	notes = require('./routes/notes'),
 	Evernote = require('evernote');
 
 var app = module.exports = express();
@@ -61,7 +63,6 @@ if (app.get('env') === 'production') {
 	// TODO
 };
 
-
 /**
  * Routes
  */
@@ -75,13 +76,18 @@ app.use("/lib", express.static(__dirname + "/public/lib"));
 app.use("/fonts", express.static(__dirname + "/public/fonts"));
 
 // JSON API
-app.get('/api/name', api.name);
+// app.get('/api/name', api.name);
 
 // Routes
-app.get('/', routes.index);
-app.get('/oauth', routes.oauth);
-app.get('/oauth_callback', routes.oauth_callback);
-app.get('/clear', routes.clear);
+// app.get('/', routes.index);
+
+//auth
+app.get('/oauth', authentication.oauth);
+app.get('/oauth_callback', authentication.oauth_callback);
+app.get('/clear', authentication.clear);
+
+//mongo
+app.get('/notes', notes.getNotes);
 
 // redirect all others to the index (HTML5 history)
 app.all("/*", function(req, res, next) {
