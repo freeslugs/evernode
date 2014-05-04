@@ -57,6 +57,7 @@ app.use("/css", express.static(__dirname + "/public/css"));
 app.use("/img", express.static(__dirname + "/public/img"));
 app.use("/partials", express.static(__dirname + "/public/partials"));
 app.use("/lib", express.static(__dirname + "/public/lib"));
+app.use("/fonts", express.static(__dirname + "/public/fonts"));
 
 // JSON API
 // app.get('/api/name', api.name);
